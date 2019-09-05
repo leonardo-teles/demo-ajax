@@ -20,8 +20,12 @@ public class DemoAjaxApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		SocialMetaTag og = service.getOpenGraphByUrl("https://www.udemy.com/course/spring-boot-mvc-com-thymeleaf/");
+		SocialMetaTag og = service.getOpenGraphByUrl("https://www.pichau.com.br/headset-logitech-g933-artemis-spectrum-7-1-surround-usb-wireless-981-000598");
 		System.out.println(og.toString());
+		
+		
+		SocialMetaTag twitter = service.getTwitterCardByUrl("https://www.pichau.com.br/headset-logitech-g933-artemis-spectrum-7-1-surround-usb-wireless-981-000598");
+		System.out.println(twitter.toString());
 	}
 
 }
