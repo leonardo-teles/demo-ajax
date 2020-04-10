@@ -2,9 +2,16 @@ package com.mballem.demoajax.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -41,7 +48,7 @@ public class Promocao implements Serializable {
 	private int likes;
 	
 	@Column(name = "data_cadastro", nullable = false)
-	private LocalDate dtCadastro;
+	private LocalDateTime dtCadastro;
 	
 	@ManyToOne
 	@JoinColumn(name = "categoria_fk")
@@ -111,11 +118,11 @@ public class Promocao implements Serializable {
 		this.likes = likes;
 	}
 
-	public LocalDate getDtCadastro() {
+	public LocalDateTime getDtCadastro() {
 		return dtCadastro;
 	}
 
-	public void setDtCadastro(LocalDate dtCadastro) {
+	public void setDtCadastro(LocalDateTime dtCadastro) {
 		this.dtCadastro = dtCadastro;
 	}
 

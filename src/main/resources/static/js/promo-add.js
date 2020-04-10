@@ -29,10 +29,6 @@ $("#form-add-promo").submit(function(evt) {
 	});
 });
 
-
-
-
-
 //função para capturar as meta tags
 $("#linkPromocao").on('change', function() {
 	
