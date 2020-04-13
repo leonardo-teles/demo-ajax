@@ -50,6 +50,17 @@ public class PromocaoController {
 		return ResponseEntity.ok(site);
 	}
 	
+	@GetMapping("/site/list")
+	public String listarPorSite(@RequestParam("site") String site, ModelMap model) {
+		Sort sort = new Sort(Direction.DESC, "dtCadastro");
+		PageRequest pageRequest = PageRequest.of(0, 4, sort);
+		
+		model.addAttribute("promocoes", promocaoRepository.findBySite(site, pageRequest));
+		
+		
+		return "promo-card";
+	}
+	
 	//adicionar likes
 	@PostMapping("/like/{id}")
 	public ResponseEntity<?> adicionarLikes(@PathVariable("id") Long id) {

@@ -76,7 +76,7 @@ $("#autocomplete-submit").on("click", function() {
 	var site = $("#autocomplete-input").val();
 	$.ajax({
 		method: "GET",
-		url: "/prmocao/site/list",
+		url: "/promocao/site/list",
 		data: {
 			site: site
 		},
