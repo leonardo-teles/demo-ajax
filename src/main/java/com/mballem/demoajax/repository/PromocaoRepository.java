@@ -1,5 +1,7 @@
 package com.mballem.demoajax.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +12,9 @@ import com.mballem.demoajax.domain.Promocao;
 
 public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
 
+	@Query("select distinct p.site from Promocao p where p.site like %:site%")
+	List<String> findSiteByTermo(@Param("site") String site);
+	
 	@Transactional(readOnly = false)
 	@Modifying
 	@Query("update Promocao p set p.likes = p.likes + 1 where p.id = :id")

@@ -42,6 +42,14 @@ public class PromocaoController {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
+	//autocomplete
+	@GetMapping("/site")
+	public ResponseEntity<?> autocompleteByTermo(@RequestParam("termo") String termo) {
+		List<String> site = promocaoRepository.findSiteByTermo(termo);
+		
+		return ResponseEntity.ok(site);
+	}
+	
 	//adicionar likes
 	@PostMapping("/like/{id}")
 	public ResponseEntity<?> adicionarLikes(@PathVariable("id") Long id) {
