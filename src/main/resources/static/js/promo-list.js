@@ -23,20 +23,20 @@ $(window).scroll(function() {
 });
 
 function loadByScrollBar(pageNumber) {
-	
+	var site = $("#autocomplete-input").val();
 	$.ajax({
 		method: "GET",
 		url: "/promocao/list/ajax",
 		data: {
-			page: pageNumber
+			page: pageNumber,
+			site: site
 		},
 		beforeSend: function() {
 			$("#loader-img").show();
 		},
 		success: function(response) {
 			//console.log("resposta > ", response);
-			
-			console.log("lista > ", response.length);
+			//console.log("lista > ", response.length);
 			
 			if(response.length > 150) {
 				$(".row").fadeIn(250, function() {
