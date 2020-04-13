@@ -72,6 +72,32 @@ $("#autocomplete-input").autocomplete({
 	}
 });
 
+$("#autocomplete-submit").on("click", function() {
+	var site = $("#autocomplete-input").val();
+	$.ajax({
+		method: "GET",
+		url: "/prmocao/site/list",
+		data: {
+			site: site
+		},
+		beforeSend: function() {
+			pageNumber = 0;
+			$("#fim-btn").hide();
+			$(".row").fadeOut(400, function() {
+				$(this).empty();
+			});
+		},
+		success: function(response) {
+			$(".row").fadeIn(250, function() {
+				$(this).append(response);
+			});
+		},
+		error: function(xhr) {
+			alert("Ops, algo deu errado: " + xhr.status + ", " + xhr.statusText);
+		}
+	});
+});
+
 //adicionando likes
 $(document).on("click", "button[id*='likes-btn-']",  function() {
 	var id = $(this).attr("id").split("-")[2];
