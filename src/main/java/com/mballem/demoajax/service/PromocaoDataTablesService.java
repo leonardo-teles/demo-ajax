@@ -5,10 +5,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 
+import com.mballem.demoajax.domain.Promocao;
 import com.mballem.demoajax.repository.PromocaoRepository;
 
 public class PromocaoDataTablesService {
@@ -31,13 +33,19 @@ public class PromocaoDataTablesService {
 		
 		Pageable pageable = PageRequest.of(current, length, direction, column);
 		
+		Page<Promocao> page = queryBy(repository, pageable);
+		
 		Map<String, Object> json = new LinkedHashMap<>();
 		json.put("draw", draw);
-		json.put("recordsTotal", 0);
-		json.put("recordsFiltered", 0);
-		json.put("data", null);
+		json.put("recordsTotal", page.getTotalElements());
+		json.put("recordsFiltered", page.getTotalElements());
+		json.put("data", page.getContent());
 		
 		return json;
+	}
+
+	private Page<Promocao> queryBy(PromocaoRepository repository, Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 	private Direction orderBy(HttpServletRequest request) {
