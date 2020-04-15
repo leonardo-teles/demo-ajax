@@ -98,6 +98,43 @@ $(document).ready(function() {
 		}
 	});
 	
+	//submit do formulário para editar
+	$("#btn-edit-modal").on('click', function() {
+		var promo = {};
+		promo.descricao = $("#edt_descricao").val();
+		promo.preco = $("#edt_preco").val();
+		promo.titulo = $("#edt_titulo").val();
+		promo.categoria = $("#edt_categoria").val();
+		promo.linkImagem = $("#edt_linkImagem").val();
+		promo.id = $("#edt_id").val();
+		
+		$.ajax({
+			method: "POST",
+			url: "/promocao/edit",
+			data: promo,
+			success: function() {
+				$("#modal-form").modal('hide');
+				table.ajax.reload();
+			},
+			statusCode: {
+				422: function(xhr) {
+					console.log('status error: ', xhr.status);
+					var errors = $.parseJSON(xhr.responseText);
+					$.each(errors, function(key, val) {
+						$("#edt_" + key).addClass("is-invalid");
+						$("#error-" + key).addClass("invalid-feedback").append("<span class='error-span'>" + val + "</span>")
+					});
+				}
+			}
+		});
+	});
+	
+	//alterar a imagem no componente <img> do modal
+	$("#edt_linkImagem").on('change', function() {
+		var link = $(this).val();
+		$("#edt_imagem").attr("src", link);
+	});
+	
 	//ação do botão de exclusão(abrir modal)
 	$("#btn-excluir").on('click', function() {
 		if(isSelectedRow()) {
