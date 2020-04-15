@@ -57,6 +57,13 @@ public class PromocaoController {
 		return ResponseEntity.ok(data);
 	}
 	
+	@GetMapping("/delete/{id}")
+	public ResponseEntity<?> excluirPromocao(@PathVariable("id") Long id) {
+		promocaoRepository.deleteById(id);
+		
+		return ResponseEntity.ok().build();
+	}
+	
 	//autocomplete
 	@GetMapping("/site")
 	public ResponseEntity<?> autocompleteByTermo(@RequestParam("termo") String termo) {

@@ -72,11 +72,27 @@ $(document).ready(function() {
 		}
 	});
 	
-	//ação do botão de exclusão
+	//ação do botão de exclusão(abrir modal)
 	$("#btn-excluir").on('click', function() {
 		if(isSelectedRow()) {
 			$("#modal-delete").modal('show');
 		}
+	});
+	
+	//exclusão de uma promoção
+	$("#btn-del-modal").on('click', function() {
+		var id = getPromoId();
+		$.ajax({
+			method: "GET",
+			url: "/promocao/delete/" + id,
+			success: function() {
+				$("#modal-delete").modal('hide');
+				table.ajax.reload();
+			},
+			error: function() {
+				alert("Ops... Ocorreu um erro, tente mais tarde.");
+			}
+		});
 	});
 	
 	function getPromoId() {
