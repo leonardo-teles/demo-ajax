@@ -119,6 +119,10 @@ $(document).on("click", "button[id*='likes-btn-']",  function() {
 //ajax reverso
 var totalOfertas = 0;
 
+$(document).ready(function() {
+	init();
+});
+
 function init() {
 	console.log("dwr init...");
 	
