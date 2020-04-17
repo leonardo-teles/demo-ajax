@@ -143,29 +143,33 @@ function showButton(count) {
 	});
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//atualizando alista de novas promoções no botão do ajax reverso
+$("#btn-alert").on("click", function() {
+	
+	$.ajax({
+		method: "GET",
+		url: "/promocao/list/ajax",
+		data: {
+			page: 0
+		},
+		beforeSend: function() {
+			pageNumber = 0;
+			totalOfertas = 0;
+			$("#fim-btn").hide();
+			$("#loader-img").addClass("loader");
+			$("#btn-alert").attr("style", "display: none;");
+			$(".row").fadeOut(400, function() {
+				$(this).empty();
+			});
+		},
+		success: function(response) {
+			$("#loader-img").removeClass("loader");
+			$(".row").fadeIn(250, function() {
+				$(this).append(response);
+			});
+		},
+		error: function(xhr) {
+			alert("Ops, algo deu errado: " + xhr.status + ", " + xhr.statusText);
+		}
+	});
+});
